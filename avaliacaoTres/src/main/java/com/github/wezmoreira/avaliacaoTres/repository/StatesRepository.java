@@ -13,5 +13,8 @@ public interface StatesRepository extends JpaRepository<States, Long> {
 
     Optional<States> findById(@PathVariable long id);
 
+    Optional<States> findByRegion(@PathVariable String region);
+
+
 
 }

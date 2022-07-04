@@ -4,8 +4,10 @@ import com.github.wezmoreira.avaliacaoTres.form.StatesForm;
 import com.github.wezmoreira.avaliacaoTres.form.UpdateStatesForm;
 import com.github.wezmoreira.avaliacaoTres.model.entity.States;
 import com.github.wezmoreira.avaliacaoTres.model.entity.dto.StatesDto;
+import com.github.wezmoreira.avaliacaoTres.model.entity.statesEnum.Region;
 import com.github.wezmoreira.avaliacaoTres.repository.StatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -36,8 +38,14 @@ public class StatesController {
 
     @GetMapping
     public List<StatesDto> getStates(String region ){
-        List<States> states = statesRepository.findAll();
-        return StatesDto.convert(states);
+        if (region == null) {
+            List<States> states = statesRepository.findAll();
+            return StatesDto.convert(states);
+        } else {
+            String regionPick = Region.valueOf(region.toUpperCase()).getStates();
+            Optional<States> states = statesRepository.findByRegion(regionPick);
+            return StatesDto.convertDto(states);
+        }
     }
 
     @GetMapping("/{id}")
