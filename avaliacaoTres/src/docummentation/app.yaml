@@ -119,7 +119,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: int64
         name:
           type: string
         region:
@@ -129,4 +129,4 @@ components:
         capital:
           type: string
         area:
-          type: integer
+          type: number
