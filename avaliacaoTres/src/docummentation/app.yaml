@@ -42,7 +42,7 @@ paths:
                 capital:
                   type: string
                 area:
-                  type: integer
+                  type: number
       responses:
         '201':
           description: Retorno com sucesso
