@@ -42,8 +42,7 @@ public class StatesController {
             List<States> states = statesRepository.findAll();
             return StatesDto.convert(states);
         } else {
-            String regionPick = Region.valueOf(region.toUpperCase()).getStates();
-            Optional<States> states = statesRepository.findByRegion(regionPick);
+            Optional<States> states = statesRepository.findByRegion(region);
             return StatesDto.convertDto(states);
         }
     }
