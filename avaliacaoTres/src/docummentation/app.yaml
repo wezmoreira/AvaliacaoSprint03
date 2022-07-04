@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Api da Sprint 03
+  description: Minha API da Sprint 03.
+  version: 0.0.1
+
+servers: 
+- url: "http://localhost:8080/api"
+  
+paths:
+  /states:
+    get:
+      summary: Retorna todos os resultados
+      description: Retorna todos os resultados disponiveis no banco de dados.
+      
+      responses:
+        '200':
+          description: Retorno com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/States'
+        '400':
+          description: Algum erro com os parâmetros
+          
+    post:
+      summary: Adiciona um novo estado.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                region:
+                  type: string
+                population:
+                  type: integer
+                capital:
+                  type: string
+                area:
+                  type: integer
+      responses:
+        '201':
+          description: Retorno com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+                
+        '400':
+          description: Erro nos parâmetros
+
+
+  /states/{id}:
+    get:
+      summary: Recupera um estado através do ID
+      description: Retorna os dados de acordo com o id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Retorno com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+        '404':
+          description: Não foi encontrada.
+              
+    put:
+      summary: Atualiza os dados
+      description: Realiza uma atualização através do Id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+        '400':
+          description: Parâmetro inválido.
+        '404':
+          description: Não foi encontrada.
+
+              
+    delete:
+      summary: Remove um estado
+      description: Remove um estado através do Id
+      parameters:
+      - name: id
+        in: path
+        description: Estado ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Sucesso
+        '404':
+          description: Não foi encontrada.
+              
+components:
+  schemas:
+    State:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        region:
+          type: string
+        population:
+          type: integer
+        capital:
+          type: string
+        area:
+          type: integer
